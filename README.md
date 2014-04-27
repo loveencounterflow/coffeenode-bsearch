@@ -22,7 +22,10 @@ ever used a dictionary or a telephone directory to locate some piece of informat
 an informal version of binary search, sadly this important algorithm is not too frequently implemented correctly;
 as [one writer put it](http://googleresearch.blogspot.de/2006/06/extra-extra-read-all-about-it-nearly.html),
 "Nearly All Binary Searches and Mergesorts are broken" (notwithstanding, it may very well be that the
-module presented here has its flaws and bugs; feel free to report issues).
+module presented here has its flaws and bugs; feel free to report issues). Assuming a correct
+implementation, binary search will do at most ⌊log<sub>2</sub>(*N*)+1⌋ comparisons, which means that when
+you otherwise had to look at up to a million values with a linear search, you'll get away with twenty
+comparisons with binary search.
 
 Another reason to publish yet another module for binary search is the scarcity of turn-key solutions that
 **(1)** incorporate the most obvious and useful generalizations of binary search, and **(2)** do not rely
