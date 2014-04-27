@@ -46,19 +46,10 @@ handler = ( value, idx ) =>
 
 ## `bSearch.proximity`
 
-`bSearch.proximity` builds on `bSearch.equality`; it tries to return a *range* of indices
+`bSearch.proximity builds on bSearch.equality, but instead of returning a single index, it tries to find a
+contiguous `*range* of matching indices. With the same `data` as in the previous example:
 
 ````coffeescript
-````
-
-````coffeescript
-````
-
-````coffeescript
-````
-
-
-
 probe = 300
 delta = 100
 
@@ -66,3 +57,19 @@ compare = ( value ) ->
   return  0 if probe - delta <= value <= probe + delta
   return -1 if probe - delta < value
   return +1
+
+[ lo_idx, hi_idx ] = bSearch.proximity data, compare
+if lo_idx?
+  console.log [ lo_idx, hi_idx, ], [ data[ lo_idx ], data[ hi_idx ], ]
+else
+  console.log 'not found'
+````
+
+````coffeescript
+````
+
+````coffeescript
+````
+
+
+
