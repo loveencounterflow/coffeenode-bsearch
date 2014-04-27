@@ -73,10 +73,12 @@ given data.
 
 ## Remarks
 
-When the `data` argument is not sorted in a way compliant with the ordering semantics of the implicit or
-explicit comparison handler, the behavior of both methods is undefined.
+* When the `data` argument is not sorted in a way that is compliant with the ordering semantics of the
+implicit or explicit comparison handler, the behavior of both methods is undefined.
 
-
+* When you use a comparison handler that returns `0` for a range of values with the `bSearch.equality`
+method, the returned index, if any, may point to any 'random' matching value; without knowing the data (and
+the  search algorithm), there is no telling which list element will be picked out.
 
 
 ````coffeescript
