@@ -99,7 +99,7 @@ a probe value; in the latter case, the default distance function shown above wil
 implicit or explicit comparison handler, the behavior of both methods is undefined.
 
 > With 'ordering semantics' we here simple mean that when run across the entire data list, the values
-> `d<sub>i</sub>` returned by the comparison
+> *d*<sub>*i*</sub> returned by the comparison
 > function must always
 
 * When you use a comparison handler that returns `0` for a range of values with the `bSearch.equality`
