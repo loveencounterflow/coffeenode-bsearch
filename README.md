@@ -98,13 +98,17 @@ a probe value; in the latter case, the default distance function shown above wil
 * When the `data` argument is not sorted in a way that is compliant with the ordering semantics of the
 implicit or explicit comparison handler, the behavior of both methods is undefined.
 
+> With 'ordering semantics' we here simple mean that when run across the entire data list, the values
+> `d<sub>i</sub>` returned by the comparison
+> function must always
+
 * When you use a comparison handler that returns `0` for a range of values with the `bSearch.equality`
 method, the returned index, if any, may point to any 'random' matching value; without  knowing the data (and
 the search algorithm), there is no telling which list element will be picked out.
 
-* When you use a comparison handler that returns the same minimum distance for more than a single value with
-the `bSearch.closest` method, the returned index, if any, may point to any 'random' matching value; without
-knowing the data (and the search algorithm), there is no telling which list element will be picked out.
+* Likewise, when using a distance function that returns the same minimum distance for more than a single
+value with the `bSearch.closest` method, the returned index, if any, may point to any 'random' matching
+value.
 
 
 
