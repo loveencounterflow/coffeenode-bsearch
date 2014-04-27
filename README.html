@@ -1,0 +1,281 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+
+body{
+  color:#444;
+  font-family:Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman',
+              "Hiragino Sans GB", "STXihei", "微软雅黑", serif;
+  font-size:12px;
+  line-height:1.5em;
+  background:#fefefe;
+  width: 45em;
+  margin: 10px auto;
+  padding: 1em;
+  outline: 1300px solid #FAFAFA;
+}
+
+a{ color: #0645ad; text-decoration:none;}
+a:visited{ color: #0b0080; }
+a:hover{ color: #06e; }
+a:active{ color:#faa700; }
+a:focus{ outline: thin dotted; }
+a:hover, a:active{ outline: 0; }
+
+span.backtick {
+  border:1px solid #EAEAEA;
+  border-radius:3px;
+  background:#F8F8F8;
+  padding:0 3px 0 3px;
+}
+
+::-moz-selection{background:rgba(255,255,0,0.3);color:#000}
+::selection{background:rgba(255,255,0,0.3);color:#000}
+
+a::-moz-selection{background:rgba(255,255,0,0.3);color:#0645ad}
+a::selection{background:rgba(255,255,0,0.3);color:#0645ad}
+
+p{
+margin:1em 0;
+}
+
+img{
+max-width:100%;
+}
+
+h1,h2,h3,h4,h5,h6{
+font-weight:normal;
+color:#111;
+line-height:1em;
+}
+h4,h5,h6{ font-weight: bold; }
+h1{ font-size:2.5em; }
+h2{ font-size:2em; border-bottom:1px solid silver; padding-bottom: 5px; }
+h3{ font-size:1.5em; }
+h4{ font-size:1.2em; }
+h5{ font-size:1em; }
+h6{ font-size:0.9em; }
+
+blockquote{
+color:#666666;
+margin:0;
+padding-left: 3em;
+border-left: 0.5em #EEE solid;
+}
+hr { display: block; height: 2px; border: 0; border-top: 1px solid #aaa;border-bottom: 1px solid #eee; margin: 1em 0; padding: 0; }
+
+
+pre , code, kbd, samp { 
+  color: #000; 
+  font-family: monospace; 
+  font-size: 0.88em; 
+  border-radius:3px;
+  background-color: #F8F8F8;
+  border: 1px solid #CCC; 
+}
+pre { white-space: pre; white-space: pre-wrap; word-wrap: break-word; padding: 5px 12px;}
+pre code { border: 0px !important; padding: 0;}
+code { padding: 0 3px 0 3px; }
+
+b, strong { font-weight: bold; }
+
+dfn { font-style: italic; }
+
+ins { background: #ff9; color: #000; text-decoration: none; }
+
+mark { background: #ff0; color: #000; font-style: italic; font-weight: bold; }
+
+sub, sup { font-size: 75%; line-height: 0; position: relative; vertical-align: baseline; }
+sup { top: -0.5em; }
+sub { bottom: -0.25em; }
+
+ul, ol { margin: 1em 0; padding: 0 0 0 2em; }
+li p:last-child { margin:0 }
+dd { margin: 0 0 0 2em; }
+
+img { border: 0; -ms-interpolation-mode: bicubic; vertical-align: middle; }
+
+table { border-collapse: collapse; border-spacing: 0; }
+td { vertical-align: top; }
+
+@media only screen and (min-width: 480px) {
+body{font-size:14px;}
+}
+
+@media only screen and (min-width: 768px) {
+body{font-size:16px;}
+}
+
+@media print {
+  * { background: transparent !important; color: black !important; filter:none !important; -ms-filter: none !important; }
+  body{font-size:12pt; max-width:100%; outline:none;}
+  a, a:visited { text-decoration: underline; }
+  hr { height: 1px; border:0; border-bottom:1px solid black; }
+  a[href]:after { content: " (" attr(href) ")"; }
+  abbr[title]:after { content: " (" attr(title) ")"; }
+  .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }
+  pre, blockquote { border: 1px solid #999; padding-right: 1em; page-break-inside: avoid; }
+  tr, img { page-break-inside: avoid; }
+  img { max-width: 100% !important; }
+  @page :left { margin: 15mm 20mm 15mm 10mm; }
+  @page :right { margin: 15mm 10mm 15mm 20mm; }
+  p, h2, h3 { orphans: 3; widows: 3; }
+  h2, h3 { page-break-after: avoid; }
+}
+</style><title>README</title></head><body><ul>
+<li><a href="#coffeenode-bsearch">CoffeeNode bSearch</a><ul>
+<li><a href="#why">Why?</a></li>
+<li><a href="#bsearchequality"><code>bSearch.equality</code></a></li>
+<li><a href="#bsearchinterval"><code>bSearch.interval</code></a></li>
+<li><a href="#bsearchclosest"><code>bSearch.closest</code></a></li>
+<li><a href="#remarks">Remarks</a></li>
+<li><a href="#caveats">Caveats</a></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>Table of Contents</strong>  <em>generated with <a href="http://doctoc.herokuapp.com/">DocToc</a></em></p>
+</blockquote>
+<h1 id="coffeenode-bsearch">CoffeeNode bSearch</h1>
+<p>CoffeeNode bSearch is a binary search implementation for JavaScript; it includes equality and proximity
+search methods. Say <code>npm install coffeenode-bsearch</code> and start searching faster today!</p>
+<h2 id="why">Why?</h2>
+<p>Binary search is a valuable tool to quickly locate items in sorted collections. Although anyone who has
+ever used a dictionary or a telephone directory to locate some piece of information has naturally employed
+an informal version of binary search, sadly this important algorithm is not too frequently implemented correctly;
+as <a href="http://googleresearch.blogspot.de/2006/06/extra-extra-read-all-about-it-nearly.html">one writer put it</a>,
+"Nearly All Binary Searches and Mergesorts are broken" (notwithstanding, it may very well be that the
+module presented here has its flaws and bugs; feel free to report issues). Assuming a correct
+implementation, binary search will do at most ⌊log<sub>2</sub>(<em>N</em>)+1⌋ comparisons, which means that when
+you otherwise had to look at up to a million values with a linear search, you'll get away with twenty
+comparisons when doing binary search.</p>
+<p>Another reason to publish yet another module for binary search is the scarcity of turn-key solutions that
+<strong>(1)</strong> incorporate the most obvious and useful generalizations of binary search, and <strong>(2)</strong> do not rely
+on special data structures like balanced trees (which most of the time you'd have to build before you can
+search; given that the entire motivation for doing a binary search instead of a linear search is the sheer
+amount of data to be searched, this can lead to significant overhead. I'm not a particular fan of algorithms
+that force you to build a non-general data structure upfront that you'll then maybe only use once before
+throwing it away).</p>
+<p>There are three methods exported by this module; in order of ascending generality (yes, you can do a
+mental binary search to locate the method that best fits your use case ;-):</p>
+<ul>
+<li>
+<p><a href="#bsearchequality"><strong>Equality Search</strong></a> will return the index of a data list argument that <em>equals</em> the
+probe search for, or <code>null</code> if no element matches;</p>
+</li>
+<li>
+<p><a href="#bsearchinterval"><strong>Interval Search</strong></a> which will return a possibly empty list of indices with those
+elements of the data list that lie <em>within a given distance</em> form a certain probe; and</p>
+</li>
+<li>
+<p><a href="#bsearchclosest"><strong>Proximity Search</strong></a> which will return the index of that element that lies <em>closest</em>
+to a given probe.</p>
+</li>
+</ul>
+<p>It is possible to use your own comparison functions with these methods, so distance and ordering metrics
+are in no way confined to the canonical example (i.e. locating a match in an ordered list of numbers which
+are tested with the <code>&lt;</code>, <code>==</code>, and <code>&gt;</code> operators).</p>
+<h2 id="bsearchequality"><code>bSearch.equality</code></h2>
+<p><code>bSearch.equality</code> takes a list of sorted values (in ascending order) and either a probe value or else a
+comparison handler as arguments; on success, it returns the index of the probe (or the value selected by the
+comparison handler) within the data or else <code>null</code>:</p>
+<pre><code class="coffeescript">bSearch = require 'coffeenode-bsearch'
+# http://oeis.org/A000217: Triangular numbers
+data = [ 0, 1, 3, 6, 10, 15, 21, 28, 36, 45, 55, 66, 78, 91, 105, 120, 136, 153, 171, 190, 210, 231, 253,
+  276, 300, 325, 351, 378, 406, 435, 465, 496, 528, 561, 595, 630, 666, 703, 741, 780, 820, 861, 903, 946,
+  990, 1035, 1081, 1128, 1176, 1225, 1275, 1326, 1378, 1431 ]
+
+idx = bSearch.equality data, 300
+if idx?
+  # prints `24 300`
+  console.log idx, data[ idx ]
+else
+  console.log 'not found'
+</code></pre>
+
+<p>You can do more if you pass in a comparison handler instead of a probe value; the handler should accept
+a single value (and possibly the current index) and return <code>0</code> where the probe is considered to equal the
+value, <code>-1</code> when the probe is less than the value, and <code>+1</code> otherwise. This is exemplified by the default
+handler used internally by <code>bSearch.equality</code>:</p>
+<pre><code class="coffeescript">handler = ( value, idx ) =&gt;
+  return  0 if probe == value
+  return -1 if probe &lt;  value
+  return +1
+</code></pre>
+
+<h2 id="bsearchinterval"><code>bSearch.interval</code></h2>
+<p><code>bSearch.interval</code> builds on <code>bSearch.equality</code>, but instead of returning a single index, it tries to find
+a contiguous <em>range</em> of matching indices. With the same <code>data</code> as in the previous example:</p>
+<pre><code class="coffeescript">probe = 300
+delta = 100
+
+compare = ( value ) -&gt;
+  return  0 if probe - delta &lt;= value &lt;= probe + delta
+  return -1 if probe - delta &lt; value
+  return +1
+
+[ lo_idx, hi_idx ] = bSearch.interval data, compare
+if lo_idx?
+  # prints `[ 20, 27 ] [ 210, 378 ]`
+  console.log [ lo_idx, hi_idx, ], [ data[ lo_idx ], data[ hi_idx ], ]
+else
+  console.log 'not found'
+</code></pre>
+
+<p>The printout tells us that values between <code>200</code> and <code>400</code> are to be found in positions <code>20</code> thru <code>27</code> of the
+given data.</p>
+<h2 id="bsearchclosest"><code>bSearch.closest</code></h2>
+<p><code>bSearch.closest</code> works like <code>bSearch.equality</code>, except that it always returns a non-null index for a
+non-empty data list, and that the result will point to (one of) the closest neighbors to the probe or
+distance function passed in. With the same <code>data</code> as in the previous examples:</p>
+<pre><code class="coffeescript">handler = ( value, idx ) =&gt;
+  return probe - value
+probe = 1000
+idx   = BS.closest data, probe
+if idx?
+  # prints `44 990`
+  console.log idx, data[ idx ]
+else
+  console.log 'not found'
+</code></pre>
+
+<p>The second argument to <code>bSearch.closest</code> may be a distance function similar to the one shown here or else
+a probe value; in the latter case, the default distance function shown above will be used.</p>
+<h2 id="remarks">Remarks</h2>
+<ul>
+<li>When the <code>data</code> argument is not sorted in a way that is compliant with the ordering semantics of the
+implicit or explicit comparison handler, the behavior of both methods is undefined.</li>
+</ul>
+<blockquote>
+<p>With 'ordering semantics' we here simple mean that when run across the entire data list, the values
+<em>d</em><sub><em>i</em></sub> returned by the comparison function must always obey
+<em>d</em><sub><em>i</em></sub> &lt;= <em>d</em><sub><em>j</em></sub> when <em>i</em> &lt;= <em>j</em>.
+As such, you <em>can</em> have a data list of numerically <em>descending</em> values
+as long as your handler returns a series of <em>non-descending</em> comparison metrics when iterating over the list.</p>
+</blockquote>
+<ul>
+<li>
+<p>When you use a comparison handler that returns <code>0</code> for a range of values with the <code>bSearch.equality</code>
+method, the returned index, if any, may point to any 'random' matching value; without  knowing the data (and
+the search algorithm), there is no telling which list element will be picked out.</p>
+</li>
+<li>
+<p>Likewise, when using a distance function that returns the same minimum distance for more than a single
+value with the <code>bSearch.closest</code> method, the returned index, if any, may point to any 'random' matching
+value.</p>
+</li>
+<li>
+<p>Be aware that bSearch always uses JavaScript's strict
+equality operator unless you pass in a comparison function. Strict equality comparisons
+<a href="http://bonsaiden.github.io/JavaScript-Garden/#types.equality">have their limitations</a> and are generally
+not to be used when comparing anything but numbers or else texts that are sorted according to Unicode
+character values.</p>
+</li>
+</ul>
+<h2 id="caveats">Caveats</h2>
+<p>This module has no test suite as yet, so its correctness and performance are more of a conjecture than a
+proven fact. Also, we do presently no memoizing of comparison results which may or may not lead to
+sub-optimal performance; since the implementation is intended to be completely agnostic as for the nature
+of the searched data, caching is hardly to be implemented easily and correctly for the general case.</p>
+<blockquote>
+<p>If indeed your comparison (or distance) function does rely on lengthy calculations, consider to implement
+a memoizing functionality that fits your use case.</p>
+</blockquote></body></html>

@@ -5,6 +5,7 @@
 	- [`bSearch.equality`](#bsearchequality)
 	- [`bSearch.interval`](#bsearchinterval)
 	- [`bSearch.closest`](#bsearchclosest)
+	- [Example with Custom Distance Function](#example-with-custom-distance-function)
 	- [Remarks](#remarks)
 	- [Caveats](#caveats)
 
@@ -120,7 +121,7 @@ distance function passed in. With the same `data` as in the previous examples:
 handler = ( value, idx ) =>
   return probe - value
 probe = 1000
-idx   = BS.closest data, probe
+idx   = bSearch.closest data, probe
 if idx?
   # prints `44 990`
   console.log idx, data[ idx ]
@@ -130,6 +131,38 @@ else
 
 The second argument to `bSearch.closest` may be a distance function similar to the one shown here or else
 a probe value; in the latter case, the default distance function shown above will be used.
+
+## Example with Custom Distance Function
+
+````coffeescript
+words = """abbatastic abracadabra fellah search canopy catalyst fad jaded alley tajmahal
+  supercalifragilisticexpialidocious ferocious pretty horse""".split /\s+/
+matcher = /a/g
+
+get_distance = ( a, b ) ->
+  count_a = ( ( a.match matcher ) ? '' ).length
+  count_b = ( ( b.match matcher ) ? '' ).length
+  return count_a - count_b
+
+match_three_as = ( word ) ->
+  return 3 - ( ( word.match matcher ) ? '' ).length
+
+words.sort get_distance
+
+# Find any one word with three `a`s:
+idx = bSearch.equality words, match_three_as
+if idx?
+  console.log idx, words[ idx ]
+else
+  console.log 'not found'
+
+# Find all words with three `a`s:
+[ lo_idx, hi_idx ] = bSearch.interval words, match_three_as
+if lo_idx?
+  console.log [ lo_idx, hi_idx, ], [ words[ idx ] for idx in [ lo_idx .. hi_idx ] ]
+else
+  console.log 'not found'
+````
 
 ## Remarks
 

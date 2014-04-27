@@ -97,7 +97,7 @@ TYPES 										= require 'coffeenode-types'
 
 ############################################################################################################
 unless module.parent?
-  BS = @
+  bSearch = @
   # http://oeis.org/A000217: Triangular numbers
   data = [ 0, 1, 3, 6, 10, 15, 21, 28, 36, 45, 55, 66, 78, 91, 105, 120, 136, 153, 171, 190, 210, 231, 253,
     276, 300, 325, 351, 378, 406, 435, 465, 496, 528, 561, 595, 630, 666, 703, 741, 780, 820, 861, 903, 946,
@@ -110,36 +110,65 @@ unless module.parent?
     return -1 if probe - delta < value
     return +1
   #.........................................................................................................
-  idx = BS.equality data, probe
+  idx = bSearch.equality data, probe
   console.log idx, data[ idx ]
   #.........................................................................................................
-  idx = BS.equality data, compare
+  idx = bSearch.equality data, compare
   console.log idx, data[ idx ]
   #.........................................................................................................
-  [ lo_idx, hi_idx ] = BS.interval data, compare
+  [ lo_idx, hi_idx ] = bSearch.interval data, compare
   console.log [ lo_idx, hi_idx, ], [ data[ lo_idx ], data[ hi_idx ], ]
   #.........................................................................................................
   probe = 300
-  idx = BS.closest data, probe
+  idx = bSearch.closest data, probe
   console.log '>>>', probe, idx, data[ idx ]
   #.........................................................................................................
   probe = 1000
-  idx = BS.closest data, probe
+  idx = bSearch.closest data, probe
   console.log '>>>', probe, idx, data[ idx ]
   #.........................................................................................................
   probe = 1000
   handler = ( value, idx ) =>
     return value - probe
-  idx = BS.closest data, probe
+  idx = bSearch.closest data, probe
   console.log '>>>', probe, idx, data[ idx ]
   #.........................................................................................................
   probe = -120
-  idx = BS.closest data, probe
+  idx = bSearch.closest data, probe
   console.log '>>>', probe, idx, data[ idx ]
   #.........................................................................................................
   probe = 4000
-  idx = BS.closest data, probe
+  idx = bSearch.closest data, probe
   console.log '>>>', probe, idx, data[ idx ]
+  #---------------------------------------------------------------------------------------------------------
+  words = """abbatastic abracadabra fellah search canopy catalyst fad jaded alley tajmahal
+    supercalifragilisticexpialidocious ferocious pretty horse""".split /\s+/
+  matcher = /a/g
+  #.........................................................................................................
+  get_distance = ( a, b ) ->
+    count_a = ( ( a.match matcher ) ? '' ).length
+    count_b = ( ( b.match matcher ) ? '' ).length
+    return count_a - count_b
+  #.........................................................................................................
+  match_three_as = ( word ) ->
+    return 3 - ( ( word.match matcher ) ? '' ).length
+  #.........................................................................................................
+  words.sort get_distance
+  #.........................................................................................................
+  # Find any one word with three `a`s:
+  idx = bSearch.equality words, match_three_as
+  if idx?
+    console.log idx, words[ idx ]
+  else
+    console.log 'not found'
+  #.........................................................................................................
+  # Find all words with three `a`s:
+  [ lo_idx, hi_idx ] = bSearch.interval words, match_three_as
+  if lo_idx?
+    console.log [ lo_idx, hi_idx, ], [ words[ idx ] for idx in [ lo_idx .. hi_idx ] ]
+  else
+    console.log 'not found'
+
 
 
 
