@@ -1,3 +1,10 @@
+
+
+- [coffeenode-bsearch](#coffeenode-bsearch)
+
+> **Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
+
+
 coffeenode-bsearch
 ==================
 

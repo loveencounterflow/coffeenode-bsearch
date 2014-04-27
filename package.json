@@ -1,0 +1,23 @@
+{
+  "name": "coffeenode-bsearch",
+  "version": "0.1.0",
+  "description": "Binary search for JavaScript; includes equality and proximity search methods",
+  "main": "lib/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/loveencounterflow/coffeenode-bsearch.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/loveencounterflow/coffeenode-bsearch/issues"
+  },
+  "homepage": "https://github.com/loveencounterflow/coffeenode-bsearch",
+  "dependencies": {
+    "coffeenode-types": "^0.1.1",
+    "coffee-script": "^1.7.1"
+  }
+}
