@@ -36,15 +36,17 @@ amount of data to be searched, this can lead to significant overhead. I'm not a 
 that force you to build a non-general data structure upfront that you'll then maybe only use once before
 throwing it away).
 
-There are three methods exported by this module; in order of ascending generality:
+There are three methods exported by this module; in order of ascending generality (yes, you can do a
+mental binary search to locate the method that best fits your use case ;-):
 
-* **Equality Search** will return the index of a data list argument that *equals* the probe search for, or
-`null` if no element matches;
+* [**Equality Search**](#bsearchequality) will return the index of a data list argument that *equals* the
+probe search for, or `null` if no element matches;
 
-* **Interval Search** which will return a possibly empty list of indices with those elements of the data
-list that lie *within a given distance* form a certain probe; and
+* [**Interval Search**](#bsearchinterval) which will return a possibly empty list of indices with those
+elements of the data list that lie *within a given distance* form a certain probe; and
 
-* **Proximity Search** which will return the index of that element that lies *closest* to a given probe.
+* [**Proximity Search**](#bsearchclosest) which will return the index of that element that lies *closest*
+to a given probe.
 
 It is possible to use your own comparison methods with these methods, so distance and ordering metrics
 are in no way confined to the canonical example (i.e. locating a match in an ordered list of numbered which
