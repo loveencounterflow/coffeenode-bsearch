@@ -6,6 +6,7 @@
 	- [`bSearch.interval`](#bsearchinterval)
 	- [`bSearch.closest`](#bsearchclosest)
 	- [Remarks](#remarks)
+	- [Caveats](#caveats)
 
 > **Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
 
@@ -146,6 +147,15 @@ the search algorithm), there is no telling which list element will be picked out
 value with the `bSearch.closest` method, the returned index, if any, may point to any 'random' matching
 value.
 
+## Caveats
+
+This module has no test suite as yet, so its correctness and performance are more of a conjecture than a
+proven fact. Also, we do presently no memoizing of comparison results which may or may not lead to
+sub-optimal performance; since the implementation is intended to be completely agnostic as for the nature
+of the searched data, caching is hardly to be implemented easily and correctly for the general case.
+
+> If indeed your comparison (or distance) function does rely on lengthy calculations, consider to implement
+> a memoizing functionality that fits your use case.
 
 
 
