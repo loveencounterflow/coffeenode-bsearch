@@ -18,7 +18,7 @@ search methods. Say `npm install coffeenode-bsearch` and start searching faster 
 
 ## Why?
 
-Binary search is a valuable tool to quickly locate items in sorted collections. Although everyone who has
+Binary search is a valuable tool to quickly locate items in sorted collections. Although anyone who has
 ever used a dictionary or a telephone directory to locate some piece of information has naturally employed
 an informal version of binary search, sadly this important algorithm is not too frequently implemented correctly;
 as [one writer put it](http://googleresearch.blogspot.de/2006/06/extra-extra-read-all-about-it-nearly.html),
@@ -26,13 +26,15 @@ as [one writer put it](http://googleresearch.blogspot.de/2006/06/extra-extra-rea
 module presented here has its flaws and bugs; feel free to report issues). Assuming a correct
 implementation, binary search will do at most ⌊log<sub>2</sub>(*N*)+1⌋ comparisons, which means that when
 you otherwise had to look at up to a million values with a linear search, you'll get away with twenty
-comparisons with binary search.
+comparisons when doing binary search.
 
 Another reason to publish yet another module for binary search is the scarcity of turn-key solutions that
 **(1)** incorporate the most obvious and useful generalizations of binary search, and **(2)** do not rely
 on special data structures like balanced trees (which most of the time you'd have to build before you can
 search; given that the entire motivation for doing a binary search instead of a linear search is the sheer
-amount of data to be searched, this can lead to significant overhead).
+amount of data to be searched, this can lead to significant overhead. I'm not a particular fan of algorithms
+that force you to build a non-general data structure upfront that you'll then maybe only use once before
+throwing it away).
 
 There are three methods exported by this module; in order of ascending generality:
 
