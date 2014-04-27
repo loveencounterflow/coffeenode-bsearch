@@ -2,7 +2,8 @@
 
 - [CoffeeNode bSearch](#coffeenode-bsearch)
 	- [`bSearch.equality`](#bsearchequality)
-	- [`bSearch.proximity`](#bsearchproximity)
+	- [`bSearch.interval`](#bsearchinterval)
+	- [`bSearch.closest`](#bsearchclosest)
 	- [Remarks](#remarks)
 
 > **Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
@@ -46,9 +47,9 @@ handler = ( value, idx ) =>
   return +1
 ````
 
-## `bSearch.proximity`
+## `bSearch.interval`
 
-`bSearch.proximity` builds on `bSearch.equality`, but instead of returning a single index, it tries to find
+`bSearch.interval` builds on `bSearch.equality`, but instead of returning a single index, it tries to find
 a contiguous *range* of matching indices. With the same `data` as in the previous example:
 
 ````coffeescript
@@ -60,7 +61,7 @@ compare = ( value ) ->
   return -1 if probe - delta < value
   return +1
 
-[ lo_idx, hi_idx ] = bSearch.proximity data, compare
+[ lo_idx, hi_idx ] = bSearch.interval data, compare
 if lo_idx?
   # prints `[ 20, 27 ] [ 210, 378 ]`
   console.log [ lo_idx, hi_idx, ], [ data[ lo_idx ], data[ hi_idx ], ]
@@ -68,8 +69,29 @@ else
   console.log 'not found'
 ````
 
-The printout tells us that values between `200` and `400` are to be found in postions `20` thru `27` of the
+The printout tells us that values between `200` and `400` are to be found in positions `20` thru `27` of the
 given data.
+
+## `bSearch.closest`
+
+`bSearch.closest` works like `bSearch.equality`, except that it always returns a non-null index for a
+non-empty data list, and that the result will point to (one of) the closest neighbors to the probe or
+distance function passed in. With the same `data` as in the previous examples:
+
+````coffeescript
+handler = ( value, idx ) =>
+  return probe - value
+probe = 1000
+idx   = BS.closest data, probe
+if idx?
+  # prints `44 990`
+  console.log idx, data[ idx ]
+else
+  console.log 'not found'
+````
+
+The second argument to `bSearch.closest` may be a distance function similar to the one shown here or else
+a probe value; in the latter case, the default distance function shown above will be used.
 
 ## Remarks
 
@@ -77,8 +99,14 @@ given data.
 implicit or explicit comparison handler, the behavior of both methods is undefined.
 
 * When you use a comparison handler that returns `0` for a range of values with the `bSearch.equality`
-method, the returned index, if any, may point to any 'random' matching value; without knowing the data (and
-the  search algorithm), there is no telling which list element will be picked out.
+method, the returned index, if any, may point to any 'random' matching value; without  knowing the data (and
+the search algorithm), there is no telling which list element will be picked out.
+
+* When you use a comparison handler that returns the same distance for a range of values with the
+`bSearch.closest`
+and `bSearch.closest` method, the returned index, if any, may point to any 'random' matching value; without
+knowing the data (and the search algorithm), there is no telling which list element will be picked out.
+
 
 
 

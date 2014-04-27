@@ -29,21 +29,16 @@ TYPES 										= require 'coffeenode-types'
   while lo_idx <= hi_idx
     mid_idx   = Math.floor ( lo_idx + hi_idx ) / 2
     mid_value = data[ mid_idx ]
-    lo_value  = data[  lo_idx ]
-    hi_value  = data[  hi_idx ]
-    cmp       = handler mid_value, probe, mid_idx
+    cmp       = handler mid_value, mid_idx
     #.......................................................................................................
-    if cmp == 0
-      return [ mid_idx, probe, h, ]
-    else if cmp < 0
-      hi_idx = mid_idx - 1
-    else
-      lo_idx = mid_idx + 1
+    return [ mid_idx, probe, h, ] if cmp == 0
+    if cmp < 0 then hi_idx = mid_idx - 1
+    else            lo_idx = mid_idx + 1
   #.........................................................................................................
   return [ null, probe, h, ]
 
 #-----------------------------------------------------------------------------------------------------------
-@proximity = ( data, handler ) ->
+@interval = ( data, handler ) ->
   throw new Error "expected a function, got a #{type}" unless ( type = TYPES.type_of handler ) is 'function'
   [ mid_idx
     probe   ] = @_equality data, handler
@@ -67,6 +62,38 @@ TYPES 										= require 'coffeenode-types'
   #.........................................................................................................
   return [ lo_idx + 1, hi_idx - 1, ]
 
+#-----------------------------------------------------------------------------------------------------------
+@closest = ( data, probe_or_handler ) ->
+  lo_idx    = 0
+  hi_idx    = data.length - 1
+  min_idx   = null
+  min_dsta  = +Infinity
+  #.........................................................................................................
+  if ( TYPES.type_of probe_or_handler ) is 'function'
+    handler = probe_or_handler
+  else
+    probe   = probe_or_handler
+    handler = ( value, idx ) =>
+      return probe - value
+  #.........................................................................................................
+  while lo_idx <= hi_idx
+    mid_idx   = Math.floor ( lo_idx + hi_idx ) / 2
+    mid_value = data[ mid_idx ]
+    mid_dst   = handler mid_value, mid_idx
+    return mid_idx if mid_dst == 0
+    mid_dsta  = Math.abs mid_dst
+    #.......................................................................................................
+    if min_dsta > mid_dsta
+      min_dsta  = mid_dsta
+      min_idx   = mid_idx
+    #.......................................................................................................
+    if mid_dst < 0
+      hi_idx = mid_idx - 1
+    else
+      lo_idx = mid_idx + 1
+  #.........................................................................................................
+  return min_idx
+
 
 ############################################################################################################
 unless module.parent?
@@ -89,8 +116,30 @@ unless module.parent?
   idx = BS.equality data, compare
   console.log idx, data[ idx ]
   #.........................................................................................................
-  [ lo_idx, hi_idx ] = BS.proximity data, compare
+  [ lo_idx, hi_idx ] = BS.interval data, compare
   console.log [ lo_idx, hi_idx, ], [ data[ lo_idx ], data[ hi_idx ], ]
+  #.........................................................................................................
+  probe = 300
+  idx = BS.closest data, probe
+  console.log '>>>', probe, idx, data[ idx ]
+  #.........................................................................................................
+  probe = 1000
+  idx = BS.closest data, probe
+  console.log '>>>', probe, idx, data[ idx ]
+  #.........................................................................................................
+  probe = 1000
+  handler = ( value, idx ) =>
+    return value - probe
+  idx = BS.closest data, probe
+  console.log '>>>', probe, idx, data[ idx ]
+  #.........................................................................................................
+  probe = -120
+  idx = BS.closest data, probe
+  console.log '>>>', probe, idx, data[ idx ]
+  #.........................................................................................................
+  probe = 4000
+  idx = BS.closest data, probe
+  console.log '>>>', probe, idx, data[ idx ]
 
 
 
