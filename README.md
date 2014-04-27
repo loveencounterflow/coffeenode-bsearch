@@ -1,6 +1,7 @@
 
 
 - [CoffeeNode bSearch](#coffeenode-bsearch)
+	- [Why?](#why)
 	- [`bSearch.equality`](#bsearchequality)
 	- [`bSearch.interval`](#bsearchinterval)
 	- [`bSearch.closest`](#bsearchclosest)
@@ -12,7 +13,37 @@
 # CoffeeNode bSearch
 
 CoffeeNode bSearch is a binary search implementation for JavaScript; it includes equality and proximity
-search methods.
+search methods. Say `npm install coffeenode-bsearch` and start searching faster today!
+
+## Why?
+
+Binary search is a valuable tool to quickly locate items in sorted collections. Although everyone who has
+ever used a dictionary or a telephone directory to locate some piece of information has naturally employed
+an informal version of binary search, sadly this important algorithm is not too frequently implemented correctly;
+as [one writer put it](http://googleresearch.blogspot.de/2006/06/extra-extra-read-all-about-it-nearly.html),
+"Nearly All Binary Searches and Mergesorts are broken" (notwithstanding, it may very well be that the
+module presented here has its flaws and bugs; feel free to report issues).
+
+Another reason to publish yet another module for binary search is the scarcity of turn-key solutions that
+**(1)** incorporate the most obvious and useful generalizations of binary search, and **(2)** do not rely
+on special data structures like balanced trees (which most of the time you'd have to build before you can
+search; given that the entire motivation for doing a binary search instead of a linear search is the sheer
+amount of data to be searched, this can lead to significant overhead).
+
+There are three methods exported by this module; in order of ascending generality:
+
+* **Equality Search** will return the index of a data list argument that *equals* the probe search for, or
+`null` if no element matches;
+
+* **Interval Search** which will return a possibly empty list of indices with those elements of the data
+list that lie *within a given distance* form a certain probe; and
+
+* **Proximity Search** which will return the index of that element that lies *closest* to a given probe.
+
+It is possible to use your own comparison methods with these methods, so distance and ordering metrics
+are in no way confined to the canonical example (i.e. locating a match in an ordered list of numbered which
+are tested with the `<`, `==`, and `>` operators).
+
 
 ## `bSearch.equality`
 
