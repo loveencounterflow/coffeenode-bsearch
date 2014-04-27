@@ -165,7 +165,9 @@ unless module.parent?
   # Find all words with three `a`s:
   [ lo_idx, hi_idx ] = bSearch.interval words, match_three_as
   if lo_idx?
-    console.log [ lo_idx, hi_idx, ], [ words[ idx ] for idx in [ lo_idx .. hi_idx ] ]
+    console.log [ lo_idx, hi_idx, ]
+    console.log [ words[ idx ] for idx in [ lo_idx .. hi_idx ] ]
+    console.log words
   else
     console.log 'not found'
 
