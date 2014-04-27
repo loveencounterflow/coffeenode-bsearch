@@ -48,8 +48,8 @@ handler = ( value, idx ) =>
 
 ## `bSearch.proximity`
 
-`bSearch.proximity` builds on bSearch.equality, but instead of returning a single index, it tries to find a
-contiguous *range* of matching indices. With the same `data` as in the previous example:
+`bSearch.proximity` builds on `bSearch.equality`, but instead of returning a single index, it tries to find
+a contiguous *range* of matching indices. With the same `data` as in the previous example:
 
 ````coffeescript
 probe = 300
