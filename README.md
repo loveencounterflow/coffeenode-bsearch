@@ -134,6 +134,8 @@ a probe value; in the latter case, the default distance function shown above wil
 
 ## Example with Custom Distance Function
 
+Setup:
+
 ````coffeescript
 words = """abbatastic abracadabra fellah search canopy catalyst fad jaded alley tajmahal
   supercalifragilisticexpialidocious ferocious pretty horse""".split /\s+/
@@ -148,20 +150,43 @@ match_three_as = ( word ) ->
   return 3 - ( ( word.match matcher ) ? '' ).length
 
 words.sort get_distance
+````
 
+Usage:
+
+````coffeescript
 # Find any one word with three `a`s:
 idx = bSearch.equality words, match_three_as
 if idx?
   console.log idx, words[ idx ]
 else
   console.log 'not found'
+````
 
+This should print
+
+````coffeescript
+10 'tajmahal'
+````
+
+Note that the result is not complete as there are more words with three `a`s. We account for that with
+`bSearch.interval`:
+
+````coffeescript
 # Find all words with three `a`s:
 [ lo_idx, hi_idx ] = bSearch.interval words, match_three_as
 if lo_idx?
   console.log [ lo_idx, hi_idx, ], [ words[ idx ] for idx in [ lo_idx .. hi_idx ] ]
 else
   console.log 'not found'
+````
+
+This should print
+
+````coffeescript
+[ 10, 12 ] [ [ 'tajmahal',
+    'supercalifragilisticexpialidocious',
+    'abbatastic' ] ]
 ````
 
 ## Remarks
