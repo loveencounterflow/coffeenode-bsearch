@@ -48,13 +48,9 @@ elements of the data list that lie *within a given distance* form a certain prob
 * [**Proximity Search**](#bsearchclosest) which will return the index of that element that lies *closest*
 to a given probe.
 
-It is possible to use your own comparison methods with these methods, so distance and ordering metrics
+It is possible to use your own comparison functions with these methods, so distance and ordering metrics
 are in no way confined to the canonical example (i.e. locating a match in an ordered list of numbers which
-are tested with the `<`, `==`, and `>` operators). **Be aware that bSearch always uses JavaScript's strict
-equality operator unless you pass in a comparison method. Strict equality comparisons
-[have their limitations](http://bonsaiden.github.io/JavaScript-Garden/#types.equality) and are generally
-not to be used when comparing anything but numbers or else texts that are sorted according to Unicode
-character values.
+are tested with the `<`, `==`, and `>` operators).
 
 ## `bSearch.equality`
 
@@ -153,6 +149,12 @@ the search algorithm), there is no telling which list element will be picked out
 * Likewise, when using a distance function that returns the same minimum distance for more than a single
 value with the `bSearch.closest` method, the returned index, if any, may point to any 'random' matching
 value.
+
+* Be aware that bSearch always uses JavaScript's strict
+equality operator unless you pass in a comparison function. Strict equality comparisons
+[have their limitations](http://bonsaiden.github.io/JavaScript-Garden/#types.equality) and are generally
+not to be used when comparing anything but numbers or else texts that are sorted according to Unicode
+character values.
 
 ## Caveats
 
