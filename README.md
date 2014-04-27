@@ -27,7 +27,8 @@ data = [ 0, 1, 3, 6, 10, 15, 21, 28, 36, 45, 55, 66, 78, 91, 105, 120, 136, 153,
 
 idx = bSearch.equality data, 300
 if idx?
-  console.log idx, data[ idx ] # prints `24 300`
+  # prints `24 300`
+  console.log idx, data[ idx ]
 else
   console.log 'not found'
 ````
@@ -46,8 +47,8 @@ handler = ( value, idx ) =>
 
 ## `bSearch.proximity`
 
-`bSearch.proximity builds on bSearch.equality, but instead of returning a single index, it tries to find a
-contiguous `*range* of matching indices. With the same `data` as in the previous example:
+`bSearch.proximity` builds on bSearch.equality, but instead of returning a single index, it tries to find a
+contiguous *range* of matching indices. With the same `data` as in the previous example:
 
 ````coffeescript
 probe = 300
@@ -60,6 +61,7 @@ compare = ( value ) ->
 
 [ lo_idx, hi_idx ] = bSearch.proximity data, compare
 if lo_idx?
+  # prints `[ 20, 27 ] [ 210, 378 ]`
   console.log [ lo_idx, hi_idx, ], [ data[ lo_idx ], data[ hi_idx ], ]
 else
   console.log 'not found'
