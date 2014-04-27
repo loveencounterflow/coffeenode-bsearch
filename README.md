@@ -102,9 +102,8 @@ implicit or explicit comparison handler, the behavior of both methods is undefin
 method, the returned index, if any, may point to any 'random' matching value; without  knowing the data (and
 the search algorithm), there is no telling which list element will be picked out.
 
-* When you use a comparison handler that returns the same distance for a range of values with the
-`bSearch.closest`
-and `bSearch.closest` method, the returned index, if any, may point to any 'random' matching value; without
+* When you use a comparison handler that returns the same minimum distance for more than a single value with
+the `bSearch.closest` method, the returned index, if any, may point to any 'random' matching value; without
 knowing the data (and the search algorithm), there is no telling which list element will be picked out.
 
 
