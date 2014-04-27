@@ -15,9 +15,9 @@ search methods.
 
 ## `bSearch.equality`
 
-`bSearch.equality` takes a list of sorted values and either a probe value or else a comparison handler as
-arguments; on success, it returns the index of the probe (or the value selected by the comparison handler)
-within the data or else `null`:
+`bSearch.equality` takes a list of sorted values (in ascending order) and either a probe value or else a
+comparison handler as arguments; on success, it returns the index of the probe (or the value selected by the
+comparison handler) within the data or else `null`:
 
 ````coffeescript
 bSearch = require 'coffeenode-bsearch'
@@ -81,11 +81,6 @@ method, the returned index, if any, may point to any 'random' matching value; wi
 the  search algorithm), there is no telling which list element will be picked out.
 
 
-````coffeescript
-````
-
-````coffeescript
-````
 
 
 
