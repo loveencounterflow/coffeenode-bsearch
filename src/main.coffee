@@ -166,8 +166,7 @@ unless module.parent?
   [ lo_idx, hi_idx ] = bSearch.interval words, match_three_as
   if lo_idx?
     console.log [ lo_idx, hi_idx, ]
-    console.log [ words[ idx ] for idx in [ lo_idx .. hi_idx ] ]
-    console.log words
+    console.log ( words[ idx ] for idx in [ lo_idx .. hi_idx ] )
   else
     console.log 'not found'
 

@@ -176,7 +176,8 @@ Note that the result is not complete as there are more words with three `a`s. We
 # Find all words with three `a`s:
 [ lo_idx, hi_idx ] = bSearch.interval words, match_three_as
 if lo_idx?
-  console.log [ lo_idx, hi_idx, ], [ words[ idx ] for idx in [ lo_idx .. hi_idx ] ]
+  console.log [ lo_idx, hi_idx, ]
+  console.log ( words[ idx ] for idx in [ lo_idx .. hi_idx ] )
 else
   console.log 'not found'
 ````
@@ -184,9 +185,10 @@ else
 This should print
 
 ````coffeescript
-[ 10, 12 ] [ [ 'tajmahal',
-    'supercalifragilisticexpialidocious',
-    'abbatastic' ] ]
+[ 10, 12 ]
+[ 'tajmahal',
+  'supercalifragilisticexpialidocious',
+  'abbatastic' ]
 ````
 
 ## Remarks
