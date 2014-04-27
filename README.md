@@ -3,6 +3,7 @@
 - [CoffeeNode bSearch](#coffeenode-bsearch)
 	- [`bSearch.equality`](#bsearchequality)
 	- [`bSearch.proximity`](#bsearchproximity)
+	- [Remarks](#remarks)
 
 > **Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
 
@@ -66,6 +67,17 @@ if lo_idx?
 else
   console.log 'not found'
 ````
+
+The printout tells us that values between `200` and `400` are to be found in postions `20` thru `27` of the
+given data.
+
+## Remarks
+
+When the `data` argument is not sorted in a way compliant with the ordering semantics of the implicit or
+explicit comparison handler, the behavior of both methods is undefined.
+
+
+
 
 ````coffeescript
 ````
