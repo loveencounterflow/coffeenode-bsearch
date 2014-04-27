@@ -167,6 +167,7 @@ unless module.parent?
   if lo_idx?
     console.log [ lo_idx, hi_idx, ]
     console.log ( words[ idx ] for idx in [ lo_idx .. hi_idx ] )
+    console.log words[ lo_idx .. hi_idx ]
   else
     console.log 'not found'
 

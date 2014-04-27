@@ -134,6 +134,10 @@ a probe value; in the latter case, the default distance function shown above wil
 
 ## Example with Custom Distance Function
 
+To convey a taste of the generality afforded by custom distance functions, we here present in all briefness
+a pretty nonsensical example which implies finding words with a given number of `a`s in them. Unlikely
+you'll ever want to do that in the real world, but you get the idea.
+
 Setup:
 
 ````coffeescript
@@ -177,7 +181,7 @@ Note that the result is not complete as there are more words with three `a`s. We
 [ lo_idx, hi_idx ] = bSearch.interval words, match_three_as
 if lo_idx?
   console.log [ lo_idx, hi_idx, ]
-  console.log ( words[ idx ] for idx in [ lo_idx .. hi_idx ] )
+  console.log words[ lo_idx .. hi_idx ]
 else
   console.log 'not found'
 ````
