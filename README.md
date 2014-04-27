@@ -49,9 +49,12 @@ elements of the data list that lie *within a given distance* form a certain prob
 to a given probe.
 
 It is possible to use your own comparison methods with these methods, so distance and ordering metrics
-are in no way confined to the canonical example (i.e. locating a match in an ordered list of numbered which
-are tested with the `<`, `==`, and `>` operators).
-
+are in no way confined to the canonical example (i.e. locating a match in an ordered list of numbers which
+are tested with the `<`, `==`, and `>` operators). **Be aware that bSearch always uses JavaScript's strict
+equality operator unless you pass in a comparison method. Strict equality comparisons
+[have their limitations](http://bonsaiden.github.io/JavaScript-Garden/#types.equality) and are generally
+not to be used when comparing anything but numbers or else texts that are sorted according to Unicode
+character values.
 
 ## `bSearch.equality`
 
