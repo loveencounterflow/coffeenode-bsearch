@@ -5,7 +5,7 @@ cd $DIR
 
 ./node_modules/coffee-script/bin/coffee -o lib -c src && \
 doctoc README.md && \
-coffeedoc -o doc src && \
+# coffeedoc -o doc src && \
 git add --all && \
 git commit -m "autocommit"
 git push -u origin master
