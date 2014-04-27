@@ -99,8 +99,9 @@ a probe value; in the latter case, the default distance function shown above wil
 implicit or explicit comparison handler, the behavior of both methods is undefined.
 
 > With 'ordering semantics' we here simple mean that when run across the entire data list, the values
-> *d*<sub>*i*</sub> returned by the comparison
-> function must always
+> *d*<sub>*i*</subreturned by the comparison function must always obey *d*<sub>*i*</sub<=
+> *d*<sub>*j*</subwhen *i* <= *j*. As such, you *can* have a data list of numerically *descending* values
+> as long as your handler returns a series of *non-descending* values when iterating over the list.
 
 * When you use a comparison handler that returns `0` for a range of values with the `bSearch.equality`
 method, the returned index, if any, may point to any 'random' matching value; without  knowing the data (and
