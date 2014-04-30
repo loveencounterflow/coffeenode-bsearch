@@ -226,10 +226,9 @@ closest point in time out of an ordered list of dates:
 > [ Sun Oct 26 2014 02:00:00 GMT+0100 (CET),
 >   Sun Oct 26 2014 02:59:00 GMT+0200 (CEST) ]
 > ````
->
->
->
->
+> We can clearly see how JavaScript did the *right* thing when trying to come to grips with the DST switch
+> (which means clocks will switch from `02:59` (sometimes labelled `02:59a`) 'back' to `02:00` (sometimes
+> labelled `02:00b`)), but does the *wrong* thing when trying to sort the dates.
 
 
 ## Remarks
