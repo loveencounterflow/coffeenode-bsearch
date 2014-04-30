@@ -5,9 +5,12 @@
 	- [`bSearch.equality`](#bsearchequality)
 	- [`bSearch.interval`](#bsearchinterval)
 	- [`bSearch.closest`](#bsearchclosest)
-	- [Example with Custom Distance Function](#example-with-custom-distance-function)
+	- [Examples with Custom Distance Function](#examples-with-custom-distance-function)
+		- [Nonsensical Letter-Counting](#nonsensical-letter-counting)
+		- [A More Realistic Example Using Dates](#a-more-realistic-example-using-dates)
 	- [Remarks](#remarks)
 	- [Caveats](#caveats)
+	- [Future](#future)
 
 > **Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
 
@@ -132,10 +135,12 @@ else
 The second argument to `bSearch.closest` may be a distance function similar to the one shown here or else
 a probe value; in the latter case, the default distance function shown above will be used.
 
-## Example with Custom Distance Function
+## Examples with Custom Distance Function
+
+### Nonsensical Letter-Counting
 
 To convey a taste of the generality afforded by custom distance functions, we here present in all briefness
-a pretty nonsensical example which implies finding words with a given number of `a`s in them. Unlikely
+a pretty nonsensical example which involves finding words with a given number of `a`s in them. Unlikely
 you'll ever want to do that in the real world, but you get the idea.
 
 Setup:
@@ -145,7 +150,7 @@ words = """abbatastic abracadabra fellah search canopy catalyst fad jaded alley 
   supercalifragilisticexpialidocious ferocious pretty horse""".split /\s+/
 matcher = /a/g
 
-get_distance = ( a, b ) ->
+sorter = ( a, b ) ->
   count_a = ( ( a.match matcher ) ? '' ).length
   count_b = ( ( b.match matcher ) ? '' ).length
   return count_a - count_b
@@ -153,7 +158,7 @@ get_distance = ( a, b ) ->
 match_three_as = ( word ) ->
   return 3 - ( ( word.match matcher ) ? '' ).length
 
-words.sort get_distance
+words.sort sorter
 ````
 
 Usage:
@@ -195,6 +200,28 @@ This should print
   'abbatastic' ]
 ````
 
+### A More Realistic Example Using Dates
+
+Since JavaScript Date objects are coerced to numbers whenever they are used with the `+` and `-` operators
+which are used by the default distance functions in CoffeeNode bSearch, it's straightforward to find the
+closest point in time out of an ordered list of dates:
+
+> **Caveat** Do not try to sort a list of JavaScript Date objects using the standard `Array::sort` method—it
+> will sort list elements other than numbers using each value's `toString` method and fail in subtle ways if
+> the list should contain changes from daylight saving time to winter time, as shown by this short snippet
+> (which works on machines localized to Germany and may behave differently on machines running in a
+> different locale):
+> ````coffeescript
+> dates = [
+>   new Date '2014-10-26T00:59'
+>   new Date '2014-10-26T01:00' ]
+>
+> console.log dates
+> console.log dates.sort()
+> ````
+
+
+
 ## Remarks
 
 * When the `data` argument is not sorted in a way that is compliant with the ordering semantics of the
@@ -230,7 +257,9 @@ of the searched data, caching is hardly to be implemented easily and correctly f
 > If indeed your comparison (or distance) function does rely on lengthy calculations, consider to implement
 > a memoizing functionality that fits your use case.
 
+## Future
 
-
+It should not be too difficult to extend the API to accept minimum and maximum indices; that way, splicing
+several long list of sorted, commensurable data could be sped up.
 
 

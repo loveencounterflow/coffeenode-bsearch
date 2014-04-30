@@ -22,9 +22,9 @@ TYPES 										= require 'coffeenode-types'
     h       = null
     #.......................................................................................................
     handler = ( value, idx ) =>
-      return  0 if probe == value
-      return -1 if probe <  value
-      return +1
+      return +1 if probe > value
+      return -1 if probe < value
+      return  0
   #.........................................................................................................
   while lo_idx <= hi_idx
     mid_idx   = Math.floor ( lo_idx + hi_idx ) / 2
