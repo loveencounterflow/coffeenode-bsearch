@@ -206,6 +206,61 @@ Since JavaScript Date objects are coerced to numbers whenever they are used with
 which are used by the default distance functions in CoffeeNode bSearch, it's straightforward to find the
 closest point in time out of an ordered list of dates:
 
+````coffeescript
+  high_and_low_water_times = [
+    new Date '2014-12-27T00:51'
+    new Date '2014-12-27T07:12'
+    new Date '2014-12-27T13:20'
+    new Date '2014-12-27T19:46'
+    new Date '2014-12-28T01:45'
+    new Date '2014-12-28T08:06'
+    new Date '2014-12-28T14:16'
+    new Date '2014-12-28T20:40'
+    new Date '2014-12-29T02:41'
+    new Date '2014-12-29T08:58'
+    new Date '2014-12-29T15:10'
+    new Date '2014-12-29T21:38'
+    new Date '2014-12-30T03:35'
+    new Date '2014-12-30T10:02'
+    new Date '2014-12-30T16:09'
+    new Date '2014-12-30T22:45'
+    ]
+
+  first_quarter = new Date '2014-12-28T19:31'
+  idx = bSearch.closest high_and_low_water_times, first_quarter
+
+  console.log 'first quarter:                     ', first_quarter
+  console.log()
+  console.log 'closest tidal event:               ', high_and_low_water_times[ idx ]
+  console.log()
+
+  milliseconds  =    1
+  seconds       = 1000 * milliseconds
+  minutes       =   60 * seconds
+  hours         =   60 * minutes
+  twelve_hours  =   12 * hours
+
+  [ lo_idx, hi_idx ] = bSearch.interval high_and_low_water_times, ( value ) ->
+    dt = first_quarter - value
+    return  0 if  ( Math.abs dt ) <= twelve_hours
+    return +1 if  dt > 0
+    return -1
+
+  for idx in [ lo_idx .. hi_idx ]
+    console.log 'tidal event closer than twelve hours: ', high_and_low_water_times[ idx ]
+````
+This will print out:
+````
+first quarter:                          Sun Dec 28 2014 20:31:00 GMT+0100 (CET)
+
+closest tidal event:                    Sun Dec 28 2014 21:40:00 GMT+0100 (CET)
+
+tidal event closer than twelve hours:   Sun Dec 28 2014 09:06:00 GMT+0100 (CET)
+tidal event closer than twelve hours:   Sun Dec 28 2014 15:16:00 GMT+0100 (CET)
+tidal event closer than twelve hours:   Sun Dec 28 2014 21:40:00 GMT+0100 (CET)
+tidal event closer than twelve hours:   Mon Dec 29 2014 03:41:00 GMT+0100 (CET)
+````
+
 > **Caveat** Do not try to sort a list of JavaScript Date objects using the standard `Array::sort` method—it
 > will sort list elements other than numbers using each value's `toString` method and fail in subtle ways if
 > the list should contain changes from daylight saving time to winter time, as shown by this short snippet
@@ -226,7 +281,7 @@ closest point in time out of an ordered list of dates:
 > [ Sun Oct 26 2014 02:00:00 GMT+0100 (CET),
 >   Sun Oct 26 2014 02:59:00 GMT+0200 (CEST) ]
 > ````
-> We can clearly see how JavaScript did the *right* thing when trying to come to grips with the DST switch
+> We can clearly see how JavaScript does the *right* thing when trying to come to grips with the DST switch
 > (which means clocks will switch from `02:59` (sometimes labelled `02:59a`) 'back' to `02:00` (sometimes
 > labelled `02:00b`)), but does the *wrong* thing when trying to sort the dates.
 
