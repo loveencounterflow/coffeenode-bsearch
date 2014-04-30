@@ -219,7 +219,17 @@ closest point in time out of an ordered list of dates:
 > console.log dates
 > console.log dates.sort()
 > ````
-
+> Output:
+> ````coffeescript
+> [ Sun Oct 26 2014 02:59:00 GMT+0200 (CEST),
+>   Sun Oct 26 2014 02:00:00 GMT+0100 (CET) ]
+> [ Sun Oct 26 2014 02:00:00 GMT+0100 (CET),
+>   Sun Oct 26 2014 02:59:00 GMT+0200 (CEST) ]
+> ````
+>
+>
+>
+>
 
 
 ## Remarks
