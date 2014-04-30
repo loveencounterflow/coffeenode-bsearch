@@ -289,7 +289,7 @@ tidal event closer than twelve hours:   Mon Dec 29 2014 03:41:00 GMT+0100 (CET)
 ## Remarks
 
 * When the `data` argument is not sorted in a way that is compliant with the ordering semantics of the
-implicit or explicit comparison handler, the behavior of both methods is undefined.
+implicit or explicit comparison handler, the behavior of all three methods is undefined.
 
 > With 'ordering semantics' we here simple mean that when run across the entire data list, the values
 > *d*<sub>*i*</sub> returned by the comparison function must always obey
